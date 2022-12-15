@@ -13,7 +13,8 @@ Future<void> main() async {
 class MyHomePage extends StatefulWidget {
   Function setTheme;
   final String? user;
-  MyHomePage({Key? key, required this.setTheme, required this.user}) : super(key: key);
+  MyHomePage({Key? key, required this.setTheme, required this.user})
+      : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -24,16 +25,16 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isDarkMode = SharedPref.pref?.getBool('isDarkMode') ?? false;
 
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Playing(),
-    Upcoming(),
-    tvScreen(),
-    profilepage(),
-
-  ];
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _widgetOptions = <Widget>[
+      Playing(),
+      Upcoming(),
+      tvScreen(),
+      ProfilePage(setTheme: widget.setTheme, user: widget.user)
+    ];
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -75,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(Icons.tv),
               label: 'Tv Series',
             ),
-             BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.people),
               label: 'Profile',
             ),
