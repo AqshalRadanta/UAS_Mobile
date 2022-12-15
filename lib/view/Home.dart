@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ThemeData themeData = ThemeData.light();
   bool isDarkMode = SharedPref.pref?.getBool('isDarkMode') ?? false;
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +79,11 @@ class _MyHomePageState extends State<MyHomePage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.people),
               label: 'Profile',
+              backgroundColor: Colors.blue,
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Color.fromARGB(255, 65, 91, 234),
+          backgroundColor: Colors.blue,
           onTap: _onItemTapped,
         ),
       ),

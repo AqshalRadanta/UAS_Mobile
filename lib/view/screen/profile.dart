@@ -1,6 +1,7 @@
 import 'package:prak_mobile/login_page.dart';
 import 'package:prak_mobile/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:prak_mobile/view/screen/user.dart';
 
 class ProfilePage extends StatefulWidget {
   Function setTheme;
@@ -53,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
             height: 8,
           ),
           Text(
-            widget.user ?? "-",
+             widget.user  ?? "ppp",
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.w600,
@@ -95,6 +96,29 @@ class _ProfilePageState extends State<ProfilePage> {
               );
             },
           ),
+          TextButton(
+            child: Text(
+              'List User',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            style: TextButton.styleFrom(
+              backgroundColor: Color.fromRGBO(49, 39, 79, 1),
+              padding: EdgeInsets.symmetric(
+                horizontal: 24,
+              ),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ListUser(setTheme: widget.setTheme, user: ""),
+                ),
+              );
+            },
+          ),
           SizedBox(
             height: 40,
           )
@@ -104,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget coverImage() => Container(
         color: Colors.grey,
         child: Image(
-          image: AssetImage('assets/images.png'),
+          image: AssetImage('assets/images2.png'),
           width: double.infinity,
           height: coverHeight,
           fit: BoxFit.cover,
@@ -114,6 +138,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget profileImage() => CircleAvatar(
         radius: profileHeight / 2,
         backgroundColor: Colors.grey.shade800,
-        backgroundImage: AssetImage('assets/profile.png'),
+        backgroundImage: AssetImage('assets/profile1.png'),
       );
 }

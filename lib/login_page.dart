@@ -228,7 +228,7 @@ class _SignInPageState extends State<LoginPage> {
                 isLoading = false;
               });
               login(usernameController.text, passwordController.text);
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(setTheme: widget.setTheme),));
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(setTheme: widget.setTheme, user: "",),));
             },
           );
         },
@@ -258,7 +258,7 @@ class _SignInPageState extends State<LoginPage> {
   void login(String usernameController, passwordController) async {
     try {
       // GET data from json
-      var response = await Dio().get('http://localhost:3000/user');
+      var response = await Dio().get('http://192.168.100.104:3000/user');
       // inisialisasi panjang data
       var panjang_data = response.data.length;
       if (response.statusCode == 200) {
@@ -269,7 +269,7 @@ class _SignInPageState extends State<LoginPage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => MyHomePage(setTheme: widget.setTheme, user: "",),
+                builder: (context) => MyHomePage(setTheme: widget.setTheme, user: response.data[1]["username"],),
               ),
             );
             break;

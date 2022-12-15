@@ -264,7 +264,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
 void register (String nama, email, password, BuildContext context)async{
   try {
-      var response = await Dio().post('http://localhost:3000/user',
+      var response = await Dio().post('http://192.168.100.104:3000/user',
           data: {"username": nama, "email": email, "password": password});
       if (response.statusCode == 201) {
         print("akun berhasil dibuat");
