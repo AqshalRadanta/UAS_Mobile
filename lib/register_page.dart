@@ -1,9 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:prak_mobile/login_page.dart';
+import 'package:prak_mobile/view/Home.dart';
 
 class RegisterPage extends StatefulWidget {
   Function setTheme;
-  RegisterPage({Key? key, required this.setTheme}) : super(key: key);
+  final String? user;
+  RegisterPage({Key? key, required this.setTheme, required this.user}) : super(key: key);
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -13,7 +16,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final usernameController = TextEditingController(text: '');
   final emailController = TextEditingController(text: '');
   final passwordController = TextEditingController(text: '');
-  final passwordConfirm = TextEditingController(text: '');
 
   bool isShowPasswordError = false;
   bool _isHidden = true;
@@ -38,11 +40,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 usernameTextField(),
                 emailInput(),
                 passwordInput(),
-                ConfirmPasswordInput(),
+                
                 SizedBox(
                   height: 56,
                 ),
-                RegisterButton(context),
+                RegisterButton(),
                 LoginrButton(),
               ],
             ),
@@ -165,7 +167,9 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget passwordInput() {
+ 
+
+ Widget passwordInput() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -200,56 +204,39 @@ class _RegisterPageState extends State<RegisterPage> {
             ],
           ),
         ),
+        if (isShowPasswordError)
+          Container(
+            margin: EdgeInsets.only(top: 8),
+            child: Text(
+              'Password kamu salah',
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
       ],
     );
   }
 
-  Widget ConfirmPasswordInput() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: EdgeInsets.only(
-            top: 32,
-          ),
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade300,
-            borderRadius: BorderRadius.circular(14),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  obscureText: true,
-                  controller: passwordConfirm,
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'Password',
-                    hintStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              Icon(
-                Icons.visibility_outlined,
-                color: Colors.grey,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Container RegisterButton(context) {
+  Widget RegisterButton() {
     return Container(
       height: 56,
       width: double.infinity,
       margin: EdgeInsets.only(top: 32),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          setState(() {
+            isLoading = true;
+          });
+          Future.delayed(
+            Duration(seconds: 2),
+            () {
+              setState(() {
+                isLoading = false;
+              });
+              register(usernameController.text, emailController.text, passwordController.text, context);
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(setTheme: widget.setTheme),));
+            },
+          );
+        },
         style: TextButton.styleFrom(
           backgroundColor: Colors.black,
           shape: RoundedRectangleBorder(
@@ -272,6 +259,29 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
+
+
+void register (String nama, email, password, BuildContext context)async{
+  try {
+      var response = await Dio().post('http://localhost:3000/user',
+          data: {"username": nama, "email": email, "password": password});
+      if (response.statusCode == 201) {
+        print("akun berhasil dibuat");
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                MyHomePage(setTheme: widget.setTheme, user: "username"),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+
+      }
+  }
+
 
   Container LoginrButton() {
     return Container(
@@ -308,9 +318,11 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+
   void _togglePasswordView() {
     setState(() {
       _isHidden = !_isHidden;
     });
   }
 }
+

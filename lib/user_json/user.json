@@ -1,17 +1,22 @@
 {
-    "user": [
-        { 
-            "id": 1, 
-            "username": "aqshal", 
-            "email" :"radanta@gmail.com",
-            "password": "aqshal" 
-        },
-        { 
-            "id": 2, 
-            "username": "aqshal1", 
-            "email":"aqshal25@gmail.com",
-            "password": "aqshal" 
-        }
-       
-    ]
+  "user": [
+    {
+      "id": 1,
+      "username": "aqshal",
+      "email": "radanta@gmail.com",
+      "password": "aqshal"
+    },
+    {
+      "id": 2,
+      "username": "aqshal1",
+      "email": "aqshal25@gmail.com",
+      "password": "aqshal"
+    },
+    {
+      "username": "asu",
+      "email": "asukayang@gmail.com",
+      "password": "11223344",
+      "id": 3
+    }
+  ]
 }

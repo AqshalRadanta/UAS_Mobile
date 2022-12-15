@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prak_mobile/theme/dark_light.dart';
 import 'package:prak_mobile/view/screen/now_playing.dart';
+import 'package:prak_mobile/view/screen/profile.dart';
 import 'package:prak_mobile/view/screen/tv.dart';
 import 'package:prak_mobile/view/screen/upcoming.dart';
 
@@ -11,7 +12,8 @@ Future<void> main() async {
 
 class MyHomePage extends StatefulWidget {
   Function setTheme;
-  MyHomePage({Key? key, required this.setTheme}) : super(key: key);
+  final String? user;
+  MyHomePage({Key? key, required this.setTheme, required this.user}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -26,6 +28,8 @@ class _MyHomePageState extends State<MyHomePage> {
     Playing(),
     Upcoming(),
     tvScreen(),
+    profilepage(),
+
   ];
 
   @override
@@ -70,6 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.tv),
               label: 'Tv Series',
+            ),
+             BottomNavigationBarItem(
+              icon: Icon(Icons.people),
+              label: 'Profile',
             ),
           ],
           currentIndex: _selectedIndex,
