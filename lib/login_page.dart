@@ -15,7 +15,7 @@ class LoginPage extends StatefulWidget {
 
 class _SignInPageState extends State<LoginPage> {
   late FToast fToast;
-  final emailController = TextEditingController(text: '');
+  final usernameController = TextEditingController(text: '');
   final passwordController = TextEditingController(text: '');
 
   bool isShowPasswordError = false;
@@ -118,9 +118,9 @@ class _SignInPageState extends State<LoginPage> {
             children: [
               Expanded(
                 child: TextFormField(
-                  controller: emailController,
+                  controller: usernameController,
                   decoration: InputDecoration.collapsed(
-                    hintText: 'Email',
+                    hintText: 'Username',
                     hintStyle: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -227,8 +227,8 @@ class _SignInPageState extends State<LoginPage> {
               setState(() {
                 isLoading = false;
               });
-              login(emailController.text, passwordController.text);
-              // Navigator.pushNamed(context, '/future');
+              login(usernameController.text, passwordController.text);
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(setTheme: widget.setTheme),));
             },
           );
         },
@@ -255,15 +255,15 @@ class _SignInPageState extends State<LoginPage> {
     );
   }
 
-  void login(String emailController, passwordController) async {
+  void login(String usernameController, passwordController) async {
     try {
       // GET data from json
-      var response = await Dio().get('http://localhost:3000/user');
+      var response = await Dio().get('http://192.168.100.104:3000/user');
       // inisialisasi panjang data
       var panjang_data = response.data.length;
       if (response.statusCode == 200) {
         for (var i = 0; i <= panjang_data; i++) {
-          if (emailController == response.data[i]['username'] &&
+          if (usernameController == response.data[i]['username'] &&
               passwordController == response.data[i]['password']) {
             print("Login success");
             Navigator.push(
@@ -279,20 +279,21 @@ class _SignInPageState extends State<LoginPage> {
         final snackBar = SnackBar(
           backgroundColor: Colors.redAccent,
           content: Text(
-            'Login failed',
+            'Username atau password salah',
             style: TextStyle(
               fontFamily: 'Poppins-Regular',
-              color: Colors.white,
+              color: Color.fromARGB(255, 232, 19, 19),
             ),
           ),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        
       }
     } catch (e) {
       final snackBar = SnackBar(
         backgroundColor: Colors.redAccent,
         content: Text(
-          'Username atau Password salah',
+          'Error Catch, please report us for this problem',
           style: TextStyle(
             fontFamily: 'Poppins-Regular',
             color: Colors.white,
@@ -300,6 +301,7 @@ class _SignInPageState extends State<LoginPage> {
         ),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      print(e);
     }
   }
 
