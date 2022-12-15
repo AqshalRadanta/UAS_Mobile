@@ -63,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
             height: 8,
           ),
           Text(
-            'Mahasiswa',
+            'Hallo',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
@@ -104,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget coverImage() => Container(
         color: Colors.grey,
         child: Image(
-          image: AssetImage('assets/bg_image.jpg'),
+          image: AssetImage('assets/images.png'),
           width: double.infinity,
           height: coverHeight,
           fit: BoxFit.cover,
@@ -114,6 +114,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget profileImage() => CircleAvatar(
         radius: profileHeight / 2,
         backgroundColor: Colors.grey.shade800,
-        backgroundImage: AssetImage('assets/profile.jpg'),
+        backgroundImage: AssetImage('assets/profile.png'),
       );
 }
